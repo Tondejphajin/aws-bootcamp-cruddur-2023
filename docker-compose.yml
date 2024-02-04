@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  backend-flask:
+    build: ./backend-flask
+    ports:
+      - "5000:5000"
+    environment:
+      - FRONTEND_URL=http://localhost:3000
+      - BACKEND_URL=http://localhost:5000
+    volumes:
+      - ./backend-flask:/backend-flask
+
+  frontend-react:
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    environment:
+      - FRONTEND_URL=http://localhost:3000
+      - BACKEND_URL=http://localhost:5000
+    volumes:
+      - ./frontend-react:/frontend-react
+
+networks:
+  interal-network:
+    driver: bridge
+    name: crudder-network
